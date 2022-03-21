@@ -11,6 +11,7 @@ public abstract class Istotaa {
     private int Exp;
     private String name;
 
+    //konstruktor
     public Istotaa(int hp, int dmgDOWN, int dmgUP, int exp, String Name) {
         HP = hp;
         dmgU = dmgUP;
@@ -19,29 +20,33 @@ public abstract class Istotaa {
         name = Name;
         currentHP = hp;
     }
-
+//Zadawanie obrażeń potworowi wchodzącemu do funkcji
     public void dealDmg(Potwór monster) {
-        monster.LoseHP(this.getAttackDmg());
-        System.out.println(this.name + " zadał " + this.getAttackDmg() + " obrażeń");
+        int DMG = getAttackDmg();
+        monster.LoseHP(DMG);
+        System.out.println(name + " zadał " + DMG + " obrażeń");
         if (this.deathCheck(monster))
-            System.out.println(monster.getName() + " ma obecnie " + monster.getHP() + " HP.");
+            System.out.println(monster.getName() + " ma obecnie " + monster.getCurrentHP() + " HP.");
         else System.out.println(monster.getName() + " został pokonany");
         System.out.println();
     }
-
+    //Zadawanie obrażeń bohaterowi wchodzącemu do funkcji
     public void dealDmg(Bohater hero) {
-        hero.LoseHP(this.getAttackDmg());
-        System.out.println(this.name + " zadał " + this.getAttackDmg() + " obrażeń");
+        int DMG = getAttackDmg();
+        hero.LoseHP(DMG);
+        System.out.println(name + " zadał " + DMG + " obrażeń");
         if (this.deathCheck(hero))
-            System.out.println(hero.getName() + " ma obecnie " + hero.getHP() + " HP.");
-        else System.out.println(hero.getName() + " został pokonany");
+            System.out.println(hero.getName() + " ma obecnie " + hero.getCurrentHP() + " HP.");
+        else System.out.println(hero.getName() + " został pokonany. Koniec gry");
         System.out.println();
     }
 
+    //funkcja odbierająca punkty życia
     public void LoseHP(int at) {
         this.currentHP -= at;
     }
 
+    //funkcja sprawdzająca czy dany potwór żyje
     public Boolean deathCheck(Potwór monster) {
         int hp = monster.getCurrentHP();
 
@@ -50,6 +55,7 @@ public abstract class Istotaa {
         else return false;
     }
 
+    //funkcja sprawdzająca czy dany bohater żyje
     public Boolean deathCheck(Bohater hero) {
         int hp = hero.getCurrentHP();
 
@@ -58,11 +64,6 @@ public abstract class Istotaa {
         else return false;
     }
 
-    public Boolean deathCheck(int hp) {
-        if (hp <= 0)
-            return false;
-        else return true;
-    }
 
     public void GainHP(int gainhp) {
         this.HP += gainhp;

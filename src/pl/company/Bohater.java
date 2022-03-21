@@ -3,13 +3,17 @@ package pl.company;
 public class Bohater extends Istotaa {
     int LvUpPoint = 300;
     int currentLV = 1;
+
     public Bohater(int hp, int dmgDOWN, int dmgUP, int exp, String Name) {
         super(hp, dmgDOWN, dmgUP, exp, Name);
     }
+
+    //funkcja nazywająca bohatera
     public void Nazywacz(String imię){
         this.setName(imię);
     }
 
+    //funkcja sprawdzająca czy bohater kwalifikuje się do awansu na wyższy poziom
     public void LVupCheck(){
         if (getExp()>=getLvUpPoint()) {
             setCurrentLV(getCurrentLV() + 1);
@@ -21,6 +25,7 @@ public class Bohater extends Istotaa {
 
     }
 
+    //Funkcja zwiększająca lv i statystyki
     public void LVupGains(){
         setHP(getHP()+10);
         setCurrentHP(getHP());
@@ -30,12 +35,17 @@ public class Bohater extends Istotaa {
             setDmgU(getDmgU()+1);
     }
 
+    //funkcja zwracająca informacje o bohaterze iloś HP, min max DMG i LV
     public void info(){
-        System.out.println("HP " +getHP()+"/"+getCurrentHP());
-        System.out.println("DMG " +getDmgD()+" - "+ getDmgU() );
+        System.out.println();
+        System.out.println(getName());
+        System.out.println("HP " +getCurrentHP()+"/"+getHP());
+        System.out.println("DMG " +getDmgD()+"-"+ getDmgU() );
         System.out.println("LV " + getCurrentLV());
     }
 
+
+    // Zmodyfikowana funkcja deal dmg dodająca exp bohaterowi po wyfranej walce
     @Override
     public void dealDmg(Potwór monster) {
         super.dealDmg(monster);
