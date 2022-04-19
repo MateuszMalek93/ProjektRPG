@@ -20,6 +20,84 @@ public abstract class Istotaa {
         name = Name;
         currentHP = hp;
     }
+
+
+
+
+    //Użycie mikstury
+    public void usePotion(Bohater hero){
+        int HP = rdm.nextInt(hero.getHP()/2- getHP()/10)+getHP()/10;
+        setCurrentHP(getCurrentHP()+HP);
+        if (hero.getCurrentHP()> hero.getHP())
+            hero.setCurrentHP(hero.getHP());
+        hero.ilośćMikstur--;
+    }
+
+
+//Udane parowanie
+    public void parryAttackSuccess(Potwór monster, Bohater Hero){
+        int chance = rdm.nextInt(100)+1;
+        System.out.println(chance);
+
+        if (100-Hero.modyfikatorTarczakryt>=chance) {
+            int DMG = getAttackDmg();
+            monster.LoseHP(DMG);
+            System.out.println(name + " Sparował cios i zadał " + DMG + " obrażeń");
+            if (this.deathCheck(monster))
+                System.out.println(monster.getName() + " ma obecnie " + monster.getCurrentHP() + " HP.");
+            else System.out.println(monster.getName() + " został pokonany");
+            System.out.println();
+        }
+        else
+        {
+            int DMG = getAttackDmg() * 2;
+            monster.LoseHP(DMG);
+            System.out.println(name + " Sparował cios i zadał " + DMG + " obrażeń trafiając w czuły punkt");
+            if (this.deathCheck(monster))
+                System.out.println(monster.getName() + " ma obecnie " + monster.getCurrentHP() + " HP.");
+            else System.out.println(monster.getName() + " został pokonany");
+            System.out.println();
+        }
+    }
+    //Nieudane parowanie
+    public void parryAttackFail(Bohater hero){
+        System.out.println("Bohater zablokował część obrażeń");
+
+        int DMG = getAttackDmg()/2;
+        hero.LoseHP(DMG);
+        System.out.println(name + " zadał " + DMG + " obrażeń");
+        if (this.deathCheck(hero))
+            System.out.println(hero.getName() + " ma obecnie " + hero.getCurrentHP() + " HP.");
+        else System.out.println(hero.getName() + " został pokonany. Koniec gry");
+        System.out.println();
+    }
+
+    //Atak, może zadać obrażenia, spudłować, lub zadać obrażenia krytyczne
+    public void AttackMonster(Potwór monster, Bohater hero){
+        int chance = rdm.nextInt(100)+1;
+        System.out.println(chance);
+
+        if(chance<=10-hero.modyfikatorMieczKryt){
+            System.out.println(monster.getName() + " wykonał unik");
+        }
+        else if (chance<=90- hero.modyfikatorMieczKryt){
+            dealDmg(monster);
+        }
+        else
+            criticalHit(monster);
+    }
+
+    // funkcja odpowiedzialna za zadanie obrażeń krytycznych
+    public void criticalHit (Potwór monster){
+        int DMG = 2*getAttackDmg();
+        monster.LoseHP(DMG);
+        System.out.println(name + " udeżył w słaby punkt i zadał " + DMG + " obrażeń");
+        if (this.deathCheck(monster))
+            System.out.println(monster.getName() + " ma obecnie " + monster.getCurrentHP() + " HP.");
+        else System.out.println(monster.getName() + " został pokonany");
+        System.out.println();
+    }
+
 //Zadawanie obrażeń potworowi wchodzącemu do funkcji
     public void dealDmg(Potwór monster) {
         int DMG = getAttackDmg();
