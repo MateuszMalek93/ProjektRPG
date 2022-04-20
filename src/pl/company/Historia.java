@@ -7,7 +7,7 @@ public class Historia {
     Random rdm = new Random();
     Scanner scanner = new Scanner(System.in);
     int counter = 0;
-    boolean Progress= true;
+    boolean Progress = true;
     boolean PrzejscieProgres = false;
 
     //Funkcja pytająca o Imię Bohatera
@@ -28,8 +28,8 @@ public class Historia {
 
     }
 
-    public void rozdziałII(Bohater Hero){
-        System.out.println("Po wyjściu z lasu " +Hero.getName()+ " rozbił obóz.");
+    public void rozdziałII(Bohater Hero) {
+        System.out.println("Po wyjściu z lasu " + Hero.getName() + " rozbił obóz.");
         System.out.println("Tej nocy śnił kłach i pazurach które, bez ustanku chciały go dopaść");
         System.out.println("Pod koniec snu zobaczył twarz swojej ukochanej, co przepełniło go siła i determinacją");
         System.out.println(" ~Zdrowie uzupełnione ");
@@ -37,6 +37,18 @@ public class Historia {
         System.out.println();
         System.out.println("ROZDZIAŁ II");
         System.out.println("OPUSZCZONY GOŚCINIEC");
+        Progress = true;
+    }
+
+    public void rozdziałIII(Bohater Hero) {
+        System.out.println("Po Przejściu Gościńca " + Hero.getName() + " rozbił obóz.");
+        System.out.println("Tej nocy nie miał snów, może to i lepiej");
+        System.out.println("Zwłaszcza, że w oddali majaczył już dwór owity złą sławą");
+        System.out.println(" ~Zdrowie uzupełnione ");
+        Hero.setCurrentHP(Hero.getHP());
+        System.out.println();
+        System.out.println("ROZDZIAŁ III");
+        System.out.println("Dwór");
         Progress = true;
     }
 
@@ -70,18 +82,19 @@ public class Historia {
                     monster.parryAttackFail(hero);
             }
             break;
-            case "m":{
-                if (hero.ilośćMikstur==0){
+            case "m": {
+                if (hero.ilośćMikstur == 0) {
                     System.out.println("Nie masz mikstur");
                     break;
                 }
                 int HP = hero.getCurrentHP();
                 hero.usePotion(hero);
-                int wyleczoneHP= hero.getCurrentHP()-HP;
+                int wyleczoneHP = hero.getCurrentHP() - HP;
 
                 System.out.println(hero.getName() + " Uzył miksturę leczniczą i przywrocił sobie " + wyleczoneHP + " HP");
                 monster.dealDmg(hero);
-            }break;
+            }
+            break;
             default:
                 System.out.println("błędna komenda");
         }
@@ -89,31 +102,88 @@ public class Historia {
 
     public void Przejście() {
         if (counter >= 10) {
-            while (!PrzejscieProgres){
-            System.out.println("Doszedłeś do końca, chcesz iść dalej czy wolisz pozostać i jeszcze się porozglądać?");
-            System.out.println("pisz \"go\" żeby iść dalej, wpisz \"stay\", aby pozostać jeszcze chwilę się porozglądać ");
-            switch (scanner.next()) {
-                case "go": {
-                    System.out.println("Tom bez lęku w sercu postanowił wyruszyć dalej");
-                    counter = 0;
-                    Progress = false;
-                    PrzejscieProgres = true;
-                }
-                break;
-                case "stay": {
-                    counter -= 5;
-                    System.out.println("Tom wolał rozejrzeć się jeszcze, zanim wyruszy w dalszą podróż");
-                    System.out.println(counter);
-                    PrzejscieProgres = true;
+            while (!PrzejscieProgres) {
+                System.out.println("Doszedłeś do końca, chcesz iść dalej czy wolisz pozostać i jeszcze się porozglądać?");
+                System.out.println("pisz \"go\" żeby iść dalej, wpisz \"stay\", aby pozostać jeszcze chwilę się porozglądać ");
+                switch (scanner.next()) {
+                    case "go": {
+                        System.out.println("Tom bez lęku w sercu postanowił wyruszyć dalej");
+                        counter = 0;
+                        Progress = false;
+                        PrzejscieProgres = true;
+                    }
+                    break;
+                    case "stay": {
+                        counter -= 5;
+                        System.out.println("Tom wolał rozejrzeć się jeszcze, zanim wyruszy w dalszą podróż");
+                        System.out.println(counter);
+                        PrzejscieProgres = true;
 
+                    }
+                    break;
+                    default:
+                        System.out.println("będna komenda");
                 }
-                break;
-                default:
-                    System.out.println("będna komenda");
-            }
 
             }
-            PrzejscieProgres=false;
+            PrzejscieProgres = false;
         }
     }
+
+
+    public void Rozdziały(Bohater Hero, Potwór monster, Historia story) {
+
+            story.Napotykasz(monster);
+            System.out.println("wpisz man jeżeli chcesz walczyć manualnie");
+            System.out.println("wpisz a jeżeli chcesz walczyć automatycznie");
+            System.out.println("wpisz p jeżeli chcesz parować automatycznie");
+
+
+            switch (scanner.next()) {
+                case "man": {
+                    while (Hero.deathCheck(Hero) && monster.deathCheck(monster)) {
+                        story.Arena(Hero, monster);
+                    }
+                }
+                break;
+                case "a": {
+                    while (Hero.deathCheck(Hero) && monster.deathCheck(monster)) {
+                        Hero.AttackMonster(monster, Hero);
+                        if (monster.deathCheck(monster))
+                            monster.dealDmg(Hero);
+                    }
+                }
+                case "p": {
+                    while (Hero.deathCheck(Hero) && monster.deathCheck(monster)) {
+                        int chance = rdm.nextInt(100) + 1;
+                        System.out.println(chance);
+                        if (chance <= 60 + Hero.modyfikatorTarczaSzansa)
+                            Hero.parryAttackSuccess(monster, Hero);
+                        else
+                            monster.parryAttackFail(Hero);
+                    }
+                    if (monster.deathCheck(monster))
+                        monster.dealDmg(Hero);
+                }
+                break;
+
+                default:
+                    System.out.println("Błędna komenda");
+            }
+
+
+            if (!Hero.deathCheck(Hero))
+            Progress = false;
+            else
+            {
+                monster.setCurrentHP(monster.getHP());
+                Hero.info();
+                story.Przejście();
+                story.counter++;
+            }
+
+
+        }
+
+
 }
