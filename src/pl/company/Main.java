@@ -15,7 +15,7 @@ public class Main {
         int los = 0;
         Scanner scan = new Scanner(new File("src/pl/company/PotworyLas"));
         Scanner scane = new Scanner(new File("src/pl/company/PotworyGosciniec"));
-        Scanner scaner = new Scanner(new File("src/pl/company/PotworyDwor"));
+        Scanner scaner = new Scanner(new File("C:\\Users\\mateusz.malek\\IdeaProjects\\Projekt\\out\\production\\Projekt\\pl\\company\\PotworyDwor"));
         Scanner sc = new Scanner(System.in);
         Bohater Hero = new Bohater(50, 2, 6, 0, " ");
         Historia story = new Historia();
@@ -27,13 +27,13 @@ public class Main {
 
 
         List<Potwór> potworyLas = new ArrayList<>();
-        List<Potwór> poworyGosciniec = new ArrayList<>();
-        List<Potwór> poworyDwor = new ArrayList<>();
+        List<Potwór> potworyGosciniec = new ArrayList<>();
+        List<Potwór> potworyDwor = new ArrayList<>();
 
         while (scan.hasNext() && scane.hasNext() && scaner.hasNext()) {
             potworyLas.add(new Potwór(scan.nextInt(), scan.nextInt(), scan.nextInt(), scan.nextInt(), scan.next()));
-            poworyGosciniec.add(new Potwór(scane.nextInt(), scane.nextInt(), scane.nextInt(), scane.nextInt(), scane.next()));
-            poworyDwor.add(new Potwór(scaner.nextInt(), scaner.nextInt(), scaner.nextInt(), scaner.nextInt(), scaner.next()));
+            potworyGosciniec.add(new Potwór(scane.nextInt(), scane.nextInt(), scane.nextInt(), scane.nextInt(), scane.next()));
+            potworyDwor.add(new Potwór(scaner.nextInt(), scaner.nextInt(), scaner.nextInt(), scaner.nextInt(), scaner.next()));
         }
 
 
@@ -46,16 +46,16 @@ public class Main {
             story.rozdziałII(Hero);
 
         while (story.Progress){
-            los = przeznaczenie.nextInt(poworyGosciniec.size());
-            story.Rozdziały(Hero,poworyGosciniec.get(los),story);
+            los = przeznaczenie.nextInt(potworyGosciniec.size());
+            story.Rozdziały(Hero,potworyGosciniec.get(los),story);
         }
 
         if (Hero.deathCheck(Hero))
             story.rozdziałII(Hero);
 
         while (story.Progress){
-            los = przeznaczenie.nextInt(poworyDwor.size());
-            story.Rozdziały(Hero,poworyDwor.get(los),story);
+            los = przeznaczenie.nextInt(potworyDwor.size());
+            story.Rozdziały(Hero,potworyDwor.get(los),story);
         }
 
     }

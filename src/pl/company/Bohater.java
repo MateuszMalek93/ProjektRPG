@@ -108,10 +108,16 @@ public class Bohater extends Istotaa {
                 }
                 break;
                 case "h": {
-                    modyfikatorTarczaSzansa += 15;
-                    modyfikatorTarczakryt += 25;
-                    setRanga("Mistrz - Huskarl");
-                    progresRanga = true;
+                    if (modyfikatorTarczaSzansa!=0) {
+                        modyfikatorTarczaSzansa += 5;
+                        modyfikatorTarczakryt += 5;
+                    }
+                                else {
+                        modyfikatorTarczaSzansa +=10;
+                        modyfikatorTarczakryt += 25;
+                        setRanga("Mistrz - Huskarl");
+                        progresRanga = true;
+                    }
                 }
                 break;
                 default:
@@ -132,18 +138,24 @@ public class Bohater extends Istotaa {
             System.out.println("Wpisz \"m\" Mistrz Miecza - +6 obrażenia minimalne i max, większa szansa na zadanie obrażenia krytycznego, atak zawsze trafia");
 
             switch (scan.next()) {
-                case "s": {
-                    modyfikatorAtak += 6;
+                case "m": {
+                    modyfikatorAtak += 5;
                     modyfikatorMieczKryt += 25;
                     setRanga("Champion - Mistrz Miecza ");
                     progresRanga = true;
                 }
                 break;
-                case "h": {
-                    modyfikatorTarczaSzansa += 20;
-                    modyfikatorTarczakryt += 30;
-                    setRanga("Champion - Pawężnik");
-                    progresRanga = true;
+                case "p": {
+                    if (modyfikatorTarczaSzansa!=0) {
+                        modyfikatorTarczaSzansa += 5;
+                        modyfikatorTarczakryt += 5;
+                    }
+                    else {
+                        modyfikatorTarczaSzansa +=15;
+                        modyfikatorTarczakryt += 25;
+                        setRanga("Champion - Pawężnik");
+                        progresRanga = true;
+                    }
                 }
                 break;
                 default:
