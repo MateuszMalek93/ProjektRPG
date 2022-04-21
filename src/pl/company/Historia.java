@@ -28,6 +28,7 @@ public class Historia {
 
     }
 
+    // Wprowadzenie fabularne do drugiego rozdziału
     public void rozdziałII(Bohater Hero) {
         System.out.println("Po wyjściu z lasu " + Hero.getName() + " rozbił obóz.");
         System.out.println("Tej nocy śnił kłach i pazurach które, bez ustanku chciały go dopaść");
@@ -40,6 +41,7 @@ public class Historia {
         Progress = true;
     }
 
+    // Wprowadzenie fabularne do trzeciego rozdziału
     public void rozdziałIII(Bohater Hero) {
         System.out.println("Po Przejściu Gościńca " + Hero.getName() + " rozbił obóz.");
         System.out.println("Tej nocy nie miał snów, może to i lepiej");
@@ -52,6 +54,13 @@ public class Historia {
         Progress = true;
     }
 
+    //Fabularne wprowadzenie do walki z bossem
+    public void Boss(){
+        System.out.println("Ostatnia z piekielnych besti padła martwa, pozostał już tylko on Mroczny Władca");
+        System.out.println("Wskazał na Bohetera Palcem i wysyczał \"Chodź i pożegnaj się ze swoją duszą\"");
+
+    }
+
     //funkcja informująca o napotkanym wrogu
     public void Napotykasz(Potwór monster) {
         System.out.println();
@@ -60,48 +69,12 @@ public class Historia {
 
     }
 
-    // funkcja przyjmująca i zwierająca w walce bohatera i potwora, bohater wybiera co zrobi w czasie walki
-    public void Arena(Bohater hero, Potwór monster) {
-        System.out.println();
-        System.out.println("Wpisz a aby zaatakować");
-        System.out.println("Wpisz p aby spróbować sparować cios");
-        System.out.println("Wpisz m aby wypić miksturę (o ile ją masz)");
-        switch (scanner.next()) {
-            case "a": {
-                hero.AttackMonster(monster, hero);
-                if (monster.deathCheck(monster))
-                    monster.dealDmg(hero);
-            }
-            break;
-            case "p": {
-                int chance = rdm.nextInt(100) + 1;
-                System.out.println(chance);
-                if (chance <= 60 + hero.modyfikatorTarczaSzansa)
-                    hero.parryAttackSuccess(monster, hero);
-                else
-                    monster.parryAttackFail(hero);
-            }
-            break;
-            case "m": {
-                if (hero.ilośćMikstur == 0) {
-                    System.out.println("Nie masz mikstur");
-                    break;
-                }
-                int HP = hero.getCurrentHP();
-                hero.usePotion(hero);
-                int wyleczoneHP = hero.getCurrentHP() - HP;
 
-                System.out.println(hero.getName() + " Uzył miksturę leczniczą i przywrocił sobie " + wyleczoneHP + " HP");
-                monster.dealDmg(hero);
-            }
-            break;
-            default:
-                System.out.println("błędna komenda");
-        }
-    }
 
+    // Funkcja sprawdzająca czy Bohater może przejśc do kolejego rozdziału. Bohater ma wybór może zostać i pokonywać dlalej
+    // Potwory z tego rozdziału, lub może przejść do następnego rozdziału
     public void Przejście() {
-        if (counter >= 10) {
+        if (counter >= 15) {
             while (!PrzejscieProgres) {
                 System.out.println("Doszedłeś do końca, chcesz iść dalej czy wolisz pozostać i jeszcze się porozglądać?");
                 System.out.println("pisz \"go\" żeby iść dalej, wpisz \"stay\", aby pozostać jeszcze chwilę się porozglądać ");
@@ -130,7 +103,7 @@ public class Historia {
         }
     }
 
-
+// Funkcja automatyzująca walkę, daje też możliwośc walki manualnej, zawiera w sobie licznik końca rozdziału, oraz przejście do następnego.
     public void Rozdziały(Bohater Hero, Potwór monster, Historia story) {
 
             story.Napotykasz(monster);
@@ -183,7 +156,48 @@ public class Historia {
             }
 
 
+
         }
+    // funkcja przyjmująca i zwierająca w walce bohatera i potwora, bohater wybiera co zrobi w czasie walki, po wybraniu walki manualnej
+    public void Arena(Bohater hero, Potwór monster) {
+        System.out.println();
+        System.out.println("Wpisz a aby zaatakować");
+        System.out.println("Wpisz p aby spróbować sparować cios");
+        System.out.println("Wpisz m aby wypić miksturę (o ile ją masz)");
+        switch (scanner.next()) {
+            case "a": {
+                hero.AttackMonster(monster, hero);
+                if (monster.deathCheck(monster))
+                    monster.dealDmg(hero);
+            }
+            break;
+            case "p": {
+                int chance = rdm.nextInt(100) + 1;
+                System.out.println(chance);
+                if (chance <= 60 + hero.modyfikatorTarczaSzansa)
+                    hero.parryAttackSuccess(monster, hero);
+                else
+                    monster.parryAttackFail(hero);
+            }
+            break;
+            case "m": {
+                if (hero.ilośćMikstur == 0) {
+                    System.out.println("Nie masz mikstur");
+                    break;
+                }
+                int HP = hero.getCurrentHP();
+                hero.usePotion(hero);
+                int wyleczoneHP = hero.getCurrentHP() - HP;
+
+                System.out.println(hero.getName() + " Uzył miksturę leczniczą i przywrocił sobie " + wyleczoneHP + " HP");
+                monster.dealDmg(hero);
+            }
+            break;
+            default:
+                System.out.println("błędna komenda");
+        }
+    }
+
 
 
 }

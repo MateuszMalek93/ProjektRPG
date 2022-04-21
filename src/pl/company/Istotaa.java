@@ -35,7 +35,6 @@ public abstract class Istotaa {
     //Udane parowanie
     public void parryAttackSuccess(Potwór monster, Bohater Hero) {
         int chance = rdm.nextInt(100) + 1;
-        System.out.println(chance);
 
         if (100 - Hero.modyfikatorTarczakryt >= chance) {
             int DMG = getAttackDmg();
@@ -72,7 +71,6 @@ public abstract class Istotaa {
     //Atak, może zadać obrażenia, spudłować, lub zadać obrażenia krytyczne
     public void AttackMonster(Potwór monster, Bohater hero) {
         int chance = rdm.nextInt(100) + 1;
-        System.out.println(chance);
 
         if (chance <= 10 - hero.modyfikatorMieczKryt) {
             System.out.println(monster.getName() + " wykonał unik");

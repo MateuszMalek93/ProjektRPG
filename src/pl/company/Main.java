@@ -35,29 +35,43 @@ public class Main {
             potworyGosciniec.add(new Potwór(scane.nextInt(), scane.nextInt(), scane.nextInt(), scane.nextInt(), scane.next()));
             potworyDwor.add(new Potwór(scaner.nextInt(), scaner.nextInt(), scaner.nextInt(), scaner.nextInt(), scaner.next()));
         }
+        Potwór Boss = new Potwór(500, 7, 15, 0, "MrocznyWładca");
 
 
-        while (story.Progress){
+        while (story.Progress && Hero.deathCheck(Hero)) {
             los = przeznaczenie.nextInt(potworyLas.size());
-            story.Rozdziały(Hero,potworyLas.get(los),story);
+            story.Rozdziały(Hero, potworyLas.get(los), story);
         }
 
         if (Hero.deathCheck(Hero))
             story.rozdziałII(Hero);
 
-        while (story.Progress){
+        while (story.Progress && Hero.deathCheck(Hero)) {
             los = przeznaczenie.nextInt(potworyGosciniec.size());
-            story.Rozdziały(Hero,potworyGosciniec.get(los),story);
+            story.Rozdziały(Hero, potworyGosciniec.get(los), story);
         }
 
         if (Hero.deathCheck(Hero))
             story.rozdziałII(Hero);
+        else
+            System.exit(0);
 
-        while (story.Progress){
+        while (story.Progress && Hero.deathCheck(Hero)) {
             los = przeznaczenie.nextInt(potworyDwor.size());
-            story.Rozdziały(Hero,potworyDwor.get(los),story);
+            story.Rozdziały(Hero, potworyDwor.get(los), story);
         }
+        if (Hero.deathCheck(Hero))
+        story.Boss();
+        else
+        System.exit(0);
 
+        while (Hero.deathCheck(Hero)&& Boss.deathCheck(Boss))
+        story.Arena(Hero, Boss);
+        if (Hero.deathCheck(Hero)) {
+            System.out.println("Udało Ci się pokonać zło plugawiące Twój świat");
+            System.out.println("Budzisz się nagle, to wszystko okazuje się snem, a Ty zaspałeś na Daily...");
+        } else
+            System.out.println("Mroczny Władca pochłania Twoją duszę");
     }
 }
 

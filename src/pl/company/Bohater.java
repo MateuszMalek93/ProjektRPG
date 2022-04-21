@@ -111,6 +111,7 @@ public class Bohater extends Istotaa {
                     if (modyfikatorTarczaSzansa!=0) {
                         modyfikatorTarczaSzansa += 5;
                         modyfikatorTarczakryt += 5;
+                        progresRanga = true;
                     }
                                 else {
                         modyfikatorTarczaSzansa +=10;
@@ -149,6 +150,7 @@ public class Bohater extends Istotaa {
                     if (modyfikatorTarczaSzansa!=0) {
                         modyfikatorTarczaSzansa += 5;
                         modyfikatorTarczakryt += 5;
+                        progresRanga = true;
                     }
                     else {
                         modyfikatorTarczaSzansa +=15;
