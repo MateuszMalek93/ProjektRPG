@@ -15,7 +15,7 @@ public class Main {
         int los = 0;
         Scanner scan = new Scanner(new File("src/pl/company/PotworyLas"));
         Scanner scane = new Scanner(new File("src/pl/company/PotworyGosciniec"));
-        Scanner scaner = new Scanner(new File("C:\\Users\\mateusz.malek\\IdeaProjects\\Projekt\\out\\production\\Projekt\\pl\\company\\PotworyDwor"));
+        Scanner scaner = new Scanner(new File("src/pl/company/PotworyDwor"));
         Scanner sc = new Scanner(System.in);
         Bohater Hero = new Bohater(50, 2, 6, 0, " ");
         Historia story = new Historia();
