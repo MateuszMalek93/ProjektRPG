@@ -80,7 +80,7 @@ public class Historia {
                 System.out.println("pisz \"go\" żeby iść dalej, wpisz \"stay\", aby pozostać jeszcze chwilę się porozglądać ");
                 switch (scanner.next()) {
                     case "go": {
-                        System.out.println("Tom bez lęku w sercu postanowił wyruszyć dalej");
+                        System.out.println("Tom bez lęku w sercu postanowił wyruszyć dalej");//todo: Tom?
                         counter = 0;
                         Progress = false;
                         PrzejscieProgres = true;

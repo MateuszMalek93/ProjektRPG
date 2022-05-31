@@ -2,7 +2,7 @@ package pl.company;
 
 import java.util.Random;
 
-public abstract class Istotaa {
+public abstract class Istotaa {//TODO: nazwa class
     Random rdm = new Random();
     private int HP;
     private int currentHP;
@@ -12,7 +12,7 @@ public abstract class Istotaa {
     private String name;
 
     //konstruktor
-    public Istotaa(int hp, int dmgDOWN, int dmgUP, int exp, String Name) {
+    public Istotaa(int hp, int dmgDOWN, int dmgUP, int exp, String Name) {//TODO: konstruktor z this.
         HP = hp;
         dmgU = dmgUP;
         dmgD = dmgDOWN;
@@ -23,8 +23,8 @@ public abstract class Istotaa {
 
 
     //Użycie mikstury
-    public void usePotion(Bohater hero) {
-        int HP = rdm.nextInt(hero.getHP() / 2 - getHP() / 10) + getHP() / 10;
+    public void usePotion(Bohater hero) {//TODO: po co przekazujemy hero??? czy ta funkcja nie powinna być w klasie Bohater?
+        int HP = rdm.nextInt(hero.getHP() / 2 - getHP() / 10) + getHP() / 10;//TODO:czy to odwołujemy się dwa razy to tego samog,
         setCurrentHP(getCurrentHP() + HP);
         if (hero.getCurrentHP() > hero.getHP())
             hero.setCurrentHP(hero.getHP());
@@ -64,7 +64,7 @@ public abstract class Istotaa {
         System.out.println(name + " zadał " + DMG + " obrażeń");
         if (this.deathCheck(hero))
             System.out.println(hero.getName() + " ma obecnie " + hero.getCurrentHP() + " HP.");
-        else System.out.println(hero.getName() + " został pokonany. Koniec gry");
+        else System.out.println(hero.getName() + " został pokonany. Koniec gry");//TODO: to dwa razy
         System.out.println();
     }
 
@@ -109,7 +109,7 @@ public abstract class Istotaa {
         System.out.println(name + " zadał " + DMG + " obrażeń");
         if (this.deathCheck(hero))
             System.out.println(hero.getName() + " ma obecnie " + hero.getCurrentHP() + " HP.");
-        else System.out.println(hero.getName() + " został pokonany. Koniec gry");
+        else System.out.println(hero.getName() + " został pokonany. Koniec gry");//TODO: (lub) to dwa razy
         System.out.println();
     }
 
@@ -122,7 +122,7 @@ public abstract class Istotaa {
     public Boolean deathCheck(Potwór monster) {
         int hp = monster.getCurrentHP();
 
-        if (hp > 0)
+        if (hp > 0)//TODO: uproszczenie
             return true;
         else return false;
     }
