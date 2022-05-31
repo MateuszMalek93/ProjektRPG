@@ -22,10 +22,10 @@ public class Main {
         story.Nazywanko(Hero);//TODO: nazwy method rónież angielskie i zwyczajowo z małęj litery
         story.rozdziałI(Hero);
         Hero.getCurrentLV();//TODO nazwy zmiennych zwyczajowo z małej litery (to wygląda jak statyczna methoda classy Hero)
-        Hero.setCurrentLV(1);
+        Hero.setCurrentLV(1);//TODO: to może być w konstruktorze bohatera
         //Hero.setCurrentHP(1);
 
-//TODO: organizacja kodu
+//TODO: organizacja kodu -> dzielienie na wiele method np: setupMonsterLists()
         List<Potwór> potworyLas = new ArrayList<>();
         List<Potwór> potworyGosciniec = new ArrayList<>();
         List<Potwór> potworyDwor = new ArrayList<>();
@@ -60,14 +60,14 @@ public class Main {
             los = przeznaczenie.nextInt(potworyDwor.size());
             story.Rozdziały(Hero, potworyDwor.get(los), story);
         }
-        if (Hero.deathCheck(Hero))//TODO: organziacja kodu
-        story.Boss();
+        if (Hero.deathCheck(Hero))//TODO: organziacja kodu skrót klawiszowy ctr+shitft+alt+l
+            story.Boss();
         else
-        System.exit(0);
+            System.exit(0);
 
-        while (Hero.deathCheck(Hero)&& Boss.deathCheck(Boss))
-        story.Arena(Hero, Boss);
-        if (Hero.deathCheck(Hero)) {//TODO po przegranje walce tu się nie wchodzi
+        while (Hero.deathCheck(Hero) && Boss.deathCheck(Boss))
+            story.Arena(Hero, Boss);
+        if (Hero.deathCheck(Hero)) {
             System.out.println("Udało Ci się pokonać zło plugawiące Twój świat");
             System.out.println("Budzisz się nagle, to wszystko okazuje się snem, a Ty zaspałeś na Daily...");
         } else

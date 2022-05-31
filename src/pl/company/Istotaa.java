@@ -24,7 +24,7 @@ public abstract class Istotaa {//TODO: nazwa class
 
     //Użycie mikstury
     public void usePotion(Bohater hero) {//TODO: po co przekazujemy hero??? czy ta funkcja nie powinna być w klasie Bohater?
-        int HP = rdm.nextInt(hero.getHP() / 2 - getHP() / 10) + getHP() / 10;//TODO:czy to odwołujemy się dwa razy to tego samog,
+        int HP = rdm.nextInt(hero.getHP() / 2 - getHP() / 10) + getHP() / 10;//TODO:czy to odwołujemy się dwa razy to tego samego,
         setCurrentHP(getCurrentHP() + HP);
         if (hero.getCurrentHP() > hero.getHP())
             hero.setCurrentHP(hero.getHP());
@@ -33,7 +33,7 @@ public abstract class Istotaa {//TODO: nazwa class
 
 
     //Udane parowanie
-    public void parryAttackSuccess(Potwór monster, Bohater Hero) {
+    public void parryAttackSuccess(Potwór monster, Bohater Hero) {//TODO: (Potwór monster) methoda jednoargumentowa
         int chance = rdm.nextInt(100) + 1;
 
         if (100 - Hero.modyfikatorTarczakryt >= chance) {
