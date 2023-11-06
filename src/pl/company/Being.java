@@ -2,7 +2,7 @@ package pl.company;
 
 import java.util.Random;
 
-public abstract class Istotaa {//TODO: nazwa class
+public abstract class Being {//TODO: nazwa class
     Random rdm = new Random();
     private int HP;
     private int currentHP;
@@ -12,7 +12,7 @@ public abstract class Istotaa {//TODO: nazwa class
     private String name;
 
     //konstruktor
-    public Istotaa(int hp, int dmgDOWN, int dmgUP, int exp, String Name) {//TODO: konstruktor z this.
+    public Being(int hp, int dmgDOWN, int dmgUP, int exp, String Name) {//TODO: konstruktor z this.
         HP = hp;
         dmgU = dmgUP;
         dmgD = dmgDOWN;
@@ -22,41 +22,28 @@ public abstract class Istotaa {//TODO: nazwa class
     }
 
 
-    //Użycie mikstury
-    public void usePotion(Bohater hero) {//TODO: po co przekazujemy hero??? czy ta funkcja nie powinna być w klasie Bohater?
-        int HP = rdm.nextInt(hero.getHP() / 2 - getHP() / 10) + getHP() / 10;//TODO:czy to odwołujemy się dwa razy to tego samego,
-        setCurrentHP(getCurrentHP() + HP);
-        if (hero.getCurrentHP() > hero.getHP())
-            hero.setCurrentHP(hero.getHP());
-        hero.ilośćMikstur--;
-    }
-
-
     //Udane parowanie
-    public void parryAttackSuccess(Potwór monster, Bohater Hero) {//TODO: (Potwór monster) methoda jednoargumentowa
+    public void parryAttackSuccess(Monster monster, Hero Hero) {//TODO: (Potwór monster) methoda jednoargumentowa
         int chance = rdm.nextInt(100) + 1;
 
-        if (100 - Hero.modyfikatorTarczakryt >= chance) {
-            int DMG = getAttackDmg();
+        int DMG;
+        if (100 - Hero.critShieldAttackModifier >= chance) {
+            DMG = getAttackDmg();
             monster.LoseHP(DMG);
             System.out.println(name + " Sparował cios i zadał " + DMG + " obrażeń");
-            if (this.deathCheck(monster))
-                System.out.println(monster.getName() + " ma obecnie " + monster.getCurrentHP() + " HP.");
-            else System.out.println(monster.getName() + " został pokonany");
-            System.out.println();
         } else {
-            int DMG = getAttackDmg() * 2;
+            DMG = getAttackDmg() * 2;
             monster.LoseHP(DMG);
             System.out.println(name + " Sparował cios i zadał " + DMG + " obrażeń trafiając w czuły punkt");
-            if (this.deathCheck(monster))
-                System.out.println(monster.getName() + " ma obecnie " + monster.getCurrentHP() + " HP.");
-            else System.out.println(monster.getName() + " został pokonany");
-            System.out.println();
         }
+        if (this.deathCheck(monster))
+            System.out.println(monster.getName() + " ma obecnie " + monster.getCurrentHP() + " HP.");
+        else System.out.println(monster.getName() + " został pokonany");
+        System.out.println();
     }
 
     //Nieudane parowanie
-    public void parryAttackFail(Bohater hero) {
+    public void parryAttackFail(Hero hero) {
         System.out.println("Bohater zablokował część obrażeń");
 
         int DMG = getAttackDmg() / 2;
@@ -64,24 +51,27 @@ public abstract class Istotaa {//TODO: nazwa class
         System.out.println(name + " zadał " + DMG + " obrażeń");
         if (this.deathCheck(hero))
             System.out.println(hero.getName() + " ma obecnie " + hero.getCurrentHP() + " HP.");
-        else System.out.println(hero.getName() + " został pokonany. Koniec gry");//TODO: to dwa razy
+        else {
+            System.out.println(hero.getName() + " został pokonany. Koniec gry");
+            System.exit(0);
+        }
         System.out.println();
     }
 
     //Atak, może zadać obrażenia, spudłować, lub zadać obrażenia krytyczne
-    public void AttackMonster(Potwór monster, Bohater hero) {
+    public void AttackMonster(Monster monster, Hero hero) {
         int chance = rdm.nextInt(100) + 1;
 
-        if (chance <= 10 - hero.modyfikatorMieczKryt) {
+        if (chance <= 10 - hero.critSwordAttackModifier) {
             System.out.println(monster.getName() + " wykonał unik");
-        } else if (chance <= 90 - hero.modyfikatorMieczKryt) {
+        } else if (chance <= 90 - hero.critSwordAttackModifier) {
             dealDmg(monster);
         } else
             criticalHit(monster);
     }
 
     // funkcja odpowiedzialna za zadanie obrażeń krytycznych
-    public void criticalHit(Potwór monster) {
+    public void criticalHit(Monster monster) {
         int DMG = 2 * getAttackDmg();
         monster.LoseHP(DMG);
         System.out.println(name + " udeżył w słaby punkt i zadał " + DMG + " obrażeń");
@@ -92,24 +82,27 @@ public abstract class Istotaa {//TODO: nazwa class
     }
 
     //Zadawanie obrażeń potworowi wchodzącemu do funkcji
-    public void dealDmg(Potwór monster) {
+    public void dealDmg(Monster monster) {
         int DMG = getAttackDmg();
         monster.LoseHP(DMG);
         System.out.println(name + " zadał " + DMG + " obrażeń");
-        if (this.deathCheck(monster))
+        if (this.deathCheck(monster) )
             System.out.println(monster.getName() + " ma obecnie " + monster.getCurrentHP() + " HP.");
         else System.out.println(monster.getName() + " został pokonany");
         System.out.println();
     }
 
     //Zadawanie obrażeń bohaterowi wchodzącemu do funkcji
-    public void dealDmg(Bohater hero) {
+    public void dealDmg(Hero hero) {
         int DMG = getAttackDmg();
         hero.LoseHP(DMG);
         System.out.println(name + " zadał " + DMG + " obrażeń");
         if (this.deathCheck(hero))
             System.out.println(hero.getName() + " ma obecnie " + hero.getCurrentHP() + " HP.");
-        else System.out.println(hero.getName() + " został pokonany. Koniec gry");//TODO: (lub) to dwa razy
+        else {
+            System.out.println(hero.getName() + " został pokonany. Koniec gry");
+            System.exit(0);
+        }
         System.out.println();
     }
 
@@ -119,28 +112,17 @@ public abstract class Istotaa {//TODO: nazwa class
     }
 
     //funkcja sprawdzająca czy dany potwór żyje
-    public Boolean deathCheck(Potwór monster) {
+    public Boolean deathCheck(Monster monster) {
         int hp = monster.getCurrentHP();
-
-        if (hp > 0)//TODO: uproszczenie
-            return true;
-        else return false;
+        return hp > 0;
     }
 
     //funkcja sprawdzająca czy dany bohater żyje
-    public Boolean deathCheck(Bohater hero) {
+    public Boolean deathCheck(Hero hero) {
         int hp = hero.getCurrentHP();
 
-        if (hp > 0)
-            return true;
-        else return false;
+        return hp > 0;
     }
-
-
-    public void GainHP(int gainhp) {
-        this.HP += gainhp;
-    }
-
 
     // SETERY GETERY
     public String getName() {
