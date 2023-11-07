@@ -19,6 +19,7 @@ public class Story {
         System.out.println();
         System.out.println("ROZDZIAŁ I");
         System.out.println("STARY LAS");
+        progress = true;
 
     }
     // Wprowadzenie fabularne do drugiego rozdziału

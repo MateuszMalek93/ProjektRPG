@@ -38,11 +38,11 @@ public class GameMechanics  {
         Monster Boss = new Monster(500, 7, 15, 0, "MrocznyWładca");
 
         story.chapterI(hero);
-        this.region(hero, potworyLas, rdm);
+        region(hero, potworyLas, rdm);
         story.chapterII(hero);
-        this.region(hero, potworyGosciniec, rdm);
+        region(hero, potworyGosciniec, rdm);
         story.chapterIII(hero);
-        this.region(hero, potworyDwor, rdm);
+        region(hero, potworyDwor, rdm);
         story.Boss();
         while (hero.deathCheck(hero) && Boss.deathCheck(Boss))
             arena(hero, Boss);
@@ -54,7 +54,10 @@ public class GameMechanics  {
     }
     // Funkcja generująca spotkania walki w danym regionie
     void region ( Hero hero, List<Monster> potwory, Random destiny ) {
+        System.out.println("przed loopem");
+        progress = true;
         while (progress && hero.deathCheck(hero)) {
+            System.out.println("w traksie loopu");
             fate = destiny.nextInt(potwory.size());
             chapters(hero, potwory.get(fate));
         }
