@@ -48,6 +48,6 @@ public class Story {
     //Fabularne wprowadzenie do walki z bossem
     public void Boss(){
         System.out.println("Ostatnia z piekielnych besti padła martwa, pozostał już tylko on Mroczny Władca");
-        System.out.println("Wskazał na Bohetera Palcem i wysyczał \"Chodź i pożegnaj się ze swoją duszą\"");
+        System.out.println("Wskazał na Bohetera palcem i wysyczał \"Chodź i pożegnaj się ze swoją duszą\"");
     }
 }

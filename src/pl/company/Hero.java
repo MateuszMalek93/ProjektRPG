@@ -23,7 +23,7 @@ public class Hero extends Being {
         this.setName(name);
     }
 
-    //funkcja sprawdzająca czy bohater kwalifikuje się do awansu na wyższy poziom
+    //funkcja sprawdzająca czy bohater kwalifikuje się do awansu na wyższy poziom, jeżeli tak następuje awans
     public void lvUpCheck() {
         if (getExp() >= getLvUpPoint()) {
             setCurrentLv(getCurrentLv() + 1);
@@ -35,7 +35,7 @@ public class Hero extends Being {
 
     }
 
-    //Funkcja zwiększająca lv i statystyki
+    //Funkcja zwiększająca statystyki w skutek zwiększenia poziomu
     public void lvUpGains() {
         setHP(getHP() + 10);
         setCurrentHP(getHP());
@@ -43,17 +43,12 @@ public class Hero extends Being {
             setDmgD(getDmgD() + 1);
         else
             setDmgU(getDmgU() + 1);
-
         if (getCurrentLv() == 5)
             rank5Lv();
-
         if (getCurrentLv() == 10)
             rank10Lv();
-
         if (getCurrentLv() == 15)
             rang15Lv();
-
-
         System.out.println();
     }
 
@@ -207,7 +202,7 @@ public class Hero extends Being {
 
     //Użycie mikstury
     public void usePotion() {
-        int HP = rdm.nextInt(getHP() / 2 - getHP() / 10) + getHP() / 10;
+        int HP = rdm.nextInt(getHP() / 4) + getHP() / 6;
         setCurrentHP(getCurrentHP() + HP);
         if (getCurrentHP() > getHP())
             setCurrentHP(getHP());
@@ -244,6 +239,7 @@ public class Hero extends Being {
     public void setRank(String ranga) {
         this.rank = ranga;
     }
+
 
 }
 

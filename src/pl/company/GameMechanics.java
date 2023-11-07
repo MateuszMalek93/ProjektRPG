@@ -84,7 +84,6 @@ public class GameMechanics  {
                     case "stay" -> {
                         counter -= 5;
                         System.out.println("Tom wolał rozejrzeć się jeszcze, zanim wyruszy w dalszą podróż");
-                        System.out.println(counter);
                         passageProgress = true;
 
                     }
@@ -124,7 +123,6 @@ public class GameMechanics  {
             case "p": {
                 while (hero.deathCheck(hero) && monster.deathCheck(monster)) {
                     int chance = rdm.nextInt(100) + 1;
-                    System.out.println(chance);
                     if (chance <= 60 + hero.shieldAttackChanceModifier)
                         hero.parryAttackSuccess(monster, hero);
                     else
@@ -134,11 +132,9 @@ public class GameMechanics  {
                     monster.dealDmg(hero);
             }
             break;
-
             default:
                 System.out.println("Błędna komenda");
         }
-
         if (!hero.deathCheck(hero))
             progress = false;
         else
@@ -177,7 +173,6 @@ public class GameMechanics  {
                 int HP = hero.getCurrentHP();
                 hero.usePotion();
                 int wyleczoneHP = hero.getCurrentHP() - HP;
-
                 System.out.println(hero.getName() + " Uzył miksturę leczniczą i przywrocił sobie " + wyleczoneHP + " HP");
                 monster.dealDmg(hero);
             }
