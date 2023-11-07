@@ -1,19 +1,31 @@
 package pl.company;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
 
-public class MechanikaRozgrywki {
+public class GameMechanics  {
     private static int fate;
     Scanner scanner = new Scanner(System.in);
     boolean progress = true;
     Random rdm = new Random();
     int counter = 0;
     boolean passageProgress = false;
-    public void mechanikaGry(Story story, Hero hero, Scanner scan, Scanner scane, Scanner scaner,
-                             Random destiny, List<Monster> potworyLas, List<Monster> potworyGosciniec,
-                             List<Monster> potworyDwor) {
+    Scanner scan = new Scanner(new File("src/pl/company/PotworyLas"));
+    Scanner scane = new Scanner(new File("src/pl/company/PotworyGosciniec"));
+    Scanner scaner = new Scanner(new File("src/pl/company/PotworyDwor"));
+    List<Monster> potworyLas = new ArrayList<>();
+    List<Monster> potworyGosciniec = new ArrayList<>();
+    List<Monster> potworyDwor = new ArrayList<>();
+
+    public GameMechanics() throws FileNotFoundException {
+    }
+
+    // Funkcja uruchamiajaca grę
+    public void game(Story story, Hero hero) {
         fate = 0;
         story.naming(hero);
         hero.setCurrentLv(1);
@@ -26,11 +38,11 @@ public class MechanikaRozgrywki {
         Monster Boss = new Monster(500, 7, 15, 0, "MrocznyWładca");
 
         story.chapterI(hero);
-        this.region(hero, potworyLas, destiny);
+        this.region(hero, potworyLas, rdm);
         story.chapterII(hero);
-        this.region(hero, potworyGosciniec, destiny);
+        this.region(hero, potworyGosciniec, rdm);
         story.chapterIII(hero);
-        this.region(hero, potworyDwor, destiny);
+        this.region(hero, potworyDwor, rdm);
         story.Boss();
         while (hero.deathCheck(hero) && Boss.deathCheck(Boss))
             arena(hero, Boss);
@@ -40,10 +52,6 @@ public class MechanikaRozgrywki {
         } else
             System.out.println("Mroczny Władca pochłania Twoją duszę");
     }
-
-
-
-
     // Funkcja generująca spotkania walki w danym regionie
     void region ( Hero hero, List<Monster> potwory, Random destiny ) {
         while (progress && hero.deathCheck(hero)) {
@@ -99,7 +107,6 @@ public class MechanikaRozgrywki {
         System.out.println("wpisz a jeżeli chcesz walczyć automatycznie");
         System.out.println("wpisz p jeżeli chcesz parować automatycznie");
 
-
         switch (scanner.next()) {
             case "man": {
                 while (hero.deathCheck(hero) && monster.deathCheck(monster)) {
@@ -141,9 +148,6 @@ public class MechanikaRozgrywki {
             passage(hero);
             counter++;
         }
-
-
-
     }
     // funkcja przyjmująca i zwierająca w walce bohatera i potwora, bohater wybiera co zrobi w czasie walki, po wybraniu walki manualnej
     public void arena(Hero hero, Monster monster) {
@@ -180,9 +184,6 @@ public class MechanikaRozgrywki {
             default -> System.out.println("błędna komenda");
         }
     }
-
-
-
 }
 
 

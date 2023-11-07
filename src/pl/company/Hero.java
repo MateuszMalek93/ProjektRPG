@@ -13,6 +13,7 @@ public class Hero extends Being {
     Scanner scan = new Scanner(System.in);
     int potionQuantity = 3;
 
+    //konstruktor
     public Hero(int hp, int dmgDOWN, int dmgUP, int exp, String name) {
         super(hp, dmgDOWN, dmgUP, exp, name);
     }
@@ -172,40 +173,9 @@ public class Hero extends Being {
         System.out.println();
     }
 
-
-    // Zmodyfikowana funkcja deal dmg dodająca exp bohaterowi po wygranej walce
-    @Override
-    public void dealDmg(Monster monster) {
+    // funkcja przyznająca pkt doświadczenia i mikstury
+    public void getExpAndSpoils(Monster monster) {
         int chance = rdm.nextInt(100) + 1;
-        super.dealDmg(monster);
-        if (!deathCheck(monster)) {
-            setExp(getExp() + monster.getExp());
-            if (chance >= 90) {
-                potionQuantity++;
-                System.out.println("Znalazłeś miksturę!");
-            }
-            lvUpCheck();
-        }
-    }
-
-    @Override
-    public void criticalHit(Monster monster) {
-        int chance = rdm.nextInt(100) + 1;
-        super.criticalHit(monster);
-        if (!deathCheck(monster)) {
-            setExp(getExp() + monster.getExp());
-            if (chance >= 80) {
-                potionQuantity++;
-                System.out.println("Znalazłeś miksturę!");
-            }
-            lvUpCheck();
-        }
-    }
-
-    @Override
-    public void parryAttackSuccess(Monster monster, Hero hero) {
-        int chance = rdm.nextInt(100) + 1;
-        super.parryAttackSuccess(monster, hero);
         if (!deathCheck(monster)) {
             setExp(getExp() + monster.getExp());
             if (chance >= 85) {
@@ -214,7 +184,25 @@ public class Hero extends Being {
             }
             lvUpCheck();
         }
+    }
 
+    // Zmodyfikowana funkcja deal dmg dodająca exp bohaterowi po wygranej walce
+    @Override
+    public void dealDmg(Monster monster) {
+        super.dealDmg(monster);
+        getExpAndSpoils(monster);
+    }
+
+    @Override
+    public void criticalHit(Monster monster) {
+        super.criticalHit(monster);
+        getExpAndSpoils(monster);
+    }
+
+    @Override
+    public void parryAttackSuccess(Monster monster, Hero hero) {
+        super.parryAttackSuccess(monster, hero);
+        getExpAndSpoils(monster);
     }
 
     //Użycie mikstury
@@ -226,7 +214,13 @@ public class Hero extends Being {
         potionQuantity--;
     }
 
+
+
     //SETERY GETERY
+
+    @Override
+    public int getAttackDmg() { return super.getAttackDmg() + attackModifier; }
+
     public int getCurrentLv() {
         return currentLV;
     }
@@ -251,11 +245,5 @@ public class Hero extends Being {
         this.rank = ranga;
     }
 
-
-    @Override
-    public int getAttackDmg() {
-        return super.getAttackDmg() + attackModifier;
-
-    }
 }
 

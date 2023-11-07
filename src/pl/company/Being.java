@@ -129,10 +129,7 @@ public abstract class Being {
         return name;
     }
 
-    public int getAttackDmg() {
-
-        return rdm.nextInt(dmgU + 1 - dmgD) + dmgD;
-    }
+    public int getAttackDmg() { return rdm.nextInt(dmgU + 1 - dmgD) + dmgD; }
 
     public int getExp() {
         return Exp;
