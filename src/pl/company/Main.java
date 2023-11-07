@@ -15,7 +15,7 @@ public class Main {
         Scanner scane = new Scanner(new File("src/pl/company/PotworyGosciniec"));
         Scanner scaner = new Scanner(new File("src/pl/company/PotworyDwor"));
         Hero Hero = new Hero(50, 2, 6, 0, " ");
-        Historia story = new Historia();
+        Story story = new Story();
         List<Monster> potworyLas = new ArrayList<>();
         List<Monster> potworyGosciniec = new ArrayList<>();
         List<Monster> potworyDwor = new ArrayList<>();

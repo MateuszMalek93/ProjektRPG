@@ -2,17 +2,17 @@ package pl.company;
 
 import java.util.Random;
 
-public abstract class Being {//TODO: nazwa class
+public abstract class Being {
     Random rdm = new Random();
     private int HP;
     private int currentHP;
     private int dmgD;
     private int dmgU;
     private int Exp;
-    private String name;
+    public String name;
 
     //konstruktor
-    public Being(int hp, int dmgDOWN, int dmgUP, int exp, String Name) {//TODO: konstruktor z this.
+    public Being(int hp, int dmgDOWN, int dmgUP, int exp, String Name) {
         HP = hp;
         dmgU = dmgUP;
         dmgD = dmgDOWN;
@@ -23,7 +23,7 @@ public abstract class Being {//TODO: nazwa class
 
 
     //Udane parowanie
-    public void parryAttackSuccess(Monster monster, Hero Hero) {//TODO: (Potwór monster) methoda jednoargumentowa
+    public void parryAttackSuccess(Monster monster, Hero Hero) {
         int chance = rdm.nextInt(100) + 1;
 
         int DMG;

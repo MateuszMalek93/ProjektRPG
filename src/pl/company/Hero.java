@@ -13,12 +13,12 @@ public class Hero extends Being {
     Scanner scan = new Scanner(System.in);
     int potionQuantity = 3;
 
-    public Hero(int hp, int dmgDOWN, int dmgUP, int exp, String Name) {
-        super(hp, dmgDOWN, dmgUP, exp, Name);
+    public Hero(int hp, int dmgDOWN, int dmgUP, int exp, String name) {
+        super(hp, dmgDOWN, dmgUP, exp, name);
     }
 
     //funkcja nazywająca bohatera
-    public void Namer(String name) {
+    public void namer(String name) {
         this.setName(name);
     }
 
@@ -44,20 +44,20 @@ public class Hero extends Being {
             setDmgU(getDmgU() + 1);
 
         if (getCurrentLv() == 5)
-            Rank5lv();
+            rank5Lv();
 
         if (getCurrentLv() == 10)
-            Rang10lv();
+            rank10Lv();
 
         if (getCurrentLv() == 15)
-            Rang15lv();
+            rang15Lv();
 
 
         System.out.println();
     }
 
     //Funkcja dodająca rangę na 5 lv
-    public void Rank5lv(){
+    public void rank5Lv() {
         boolean progresRanga = false;
         while (!progresRanga) {
             System.out.println("Twoja ranga wzrasta teraz jesteś Wojownikiem");
@@ -87,7 +87,7 @@ public class Hero extends Being {
     }
 
     //Funkcja dodająca rangę na 10 lv
-    public void Rang10lv (){
+    public void rank10Lv() {
         boolean progresRanga = false;
         while (!progresRanga) {
             System.out.println("Twoja ranga wzrasta teraz jesteś Mistrzem");
@@ -121,7 +121,7 @@ public class Hero extends Being {
     }
 
     //Funkcja dodająca rangę na 15 lv
-    public void Rang15lv (){
+    public void rang15Lv() {
         boolean progresRanga = false;
         while (!progresRanga) {
             System.out.println("Twoja ranga wzrasta teraz jesteś Mistrzem");
@@ -218,8 +218,8 @@ public class Hero extends Being {
     }
 
     //Użycie mikstury
-    public void usePotion() {//TODO: po co przekazujemy hero??? czy ta funkcja nie powinna być w klasie Bohater?
-        int HP = rdm.nextInt(getHP() / 2 - getHP() / 10) + getHP() / 10;//TODO:czy to odwołujemy się dwa razy to tego samego,
+    public void usePotion() {
+        int HP = rdm.nextInt(getHP() / 2 - getHP() / 10) + getHP() / 10;
         setCurrentHP(getCurrentHP() + HP);
         if (getCurrentHP() > getHP())
             setCurrentHP(getHP());
